@@ -6,6 +6,8 @@ import { NumberFormatStyle, NgIf } from '@angular/common';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import {Router} from "@angular/router";
+
 @Component({
   selector:'app-product-update',
   //templateUrl: `./products.components.html`,
@@ -24,7 +26,7 @@ export class ProductUpdateComponent   {
 
 public ProductName='';
 public ProductPrice:number;
-constructor(private httpClient: HttpClient){}
+constructor(private httpClient: HttpClient,private router: Router){}
 
 ngOnInit(){
 
@@ -51,7 +53,10 @@ update(){
   this.httpClient.patch(environment.apiUrl+'product/updateProduct/'+localStorage.getItem("productID"),data,config).
           subscribe(
            (data:any) => {console.log(data)});
-        }
+      
+           this.router.navigate(["/store/products"]);
+
+          }
 
 
 }
